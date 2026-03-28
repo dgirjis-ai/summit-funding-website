@@ -3,16 +3,19 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Industries", href: "#industries" },
-  { label: "How It Works", href: "#how-it-works" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Solutions", href: "/solutions" },
+  { label: "Industries", href: "/industries" },
+  { label: "How It Works", href: "/how-it-works" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
@@ -25,6 +28,7 @@ export default function Navbar() {
               width={180}
               height={48}
               className="h-10 md:h-12 w-auto"
+              style={{ mixBlendMode: "multiply" }}
               priority
             />
           </Link>
@@ -32,13 +36,17 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-navy/70 hover:text-navy transition-colors"
+                className={`text-sm font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-navy"
+                    : "text-navy/70 hover:text-navy"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <Link
               href="/apply"
@@ -70,14 +78,18 @@ export default function Navbar() {
         <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block text-sm font-medium text-navy/70 hover:text-navy py-2"
+                className={`block text-sm font-medium py-2 ${
+                  pathname === link.href
+                    ? "text-navy"
+                    : "text-navy/70 hover:text-navy"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <Link
               href="/apply"

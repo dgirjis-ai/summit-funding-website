@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const features = [
@@ -10,7 +11,7 @@ const features = [
       </svg>
     ),
     title: "Wide Lender Network",
-    desc: "We partner with dozens of lenders across the country to find the perfect funding match for your unique business needs.",
+    desc: "50+ lenders across the country to find your perfect funding match.",
   },
   {
     icon: (
@@ -19,7 +20,7 @@ const features = [
       </svg>
     ),
     title: "Speed & Simplicity",
-    desc: "Our streamlined process gets you from application to funding in as little as 24 hours. No lengthy paperwork or endless waiting.",
+    desc: "From application to funding in as little as 24 hours.",
   },
   {
     icon: (
@@ -28,7 +29,7 @@ const features = [
       </svg>
     ),
     title: "Customized Solutions",
-    desc: "Every business is different. We tailor funding recommendations based on your revenue, industry, and growth goals.",
+    desc: "Tailored recommendations based on your revenue, industry, and goals.",
   },
 ];
 
@@ -71,10 +72,8 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg text-steel leading-relaxed"
           >
-            Summit Fundings is a business funding broker — not a direct lender. That
-            means we work for <em>you</em>, shopping your application across our
-            extensive network of lenders to secure the best rates and terms
-            available.
+            Summit Fundings is a business funding broker — not a direct lender. We
+            shop your application across our network to secure the best rates and terms.
           </motion.p>
         </div>
 
@@ -102,6 +101,21 @@ export default function About() {
               </p>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/about"
+            className="inline-flex items-center text-navy font-semibold hover:text-accent transition-colors text-base"
+          >
+            Learn More About Us →
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const industries = [
@@ -14,7 +15,7 @@ const industries = [
   { icon: "💼", name: "Professional Services" },
   { icon: "🔧", name: "Auto Repair" },
   { icon: "🏋️", name: "Fitness & Gyms" },
-  { icon: "➕", name: "And More..." },
+  { icon: "🏭", name: "Manufacturing" },
 ];
 
 export default function Industries() {
@@ -37,18 +38,8 @@ export default function Industries() {
             transition={{ duration: 0.5 }}
             className="text-3xl sm:text-4xl font-bold text-navy mb-6"
           >
-            Funding for Businesses Across Every Industry
+            We Fund Businesses Across Every Industry
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-steel"
-          >
-            No matter your industry, we have lender partners who specialize in
-            businesses just like yours.
-          </motion.p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
@@ -68,6 +59,21 @@ export default function Industries() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/industries"
+            className="inline-flex items-center text-navy font-semibold hover:text-accent transition-colors text-base"
+          >
+            See All Industries →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

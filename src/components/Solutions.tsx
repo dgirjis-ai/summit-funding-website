@@ -1,37 +1,38 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const solutions = [
   {
     icon: "💰",
     title: "Merchant Cash Advances",
-    desc: "Get a lump sum of capital in exchange for a percentage of future sales. Flexible repayment that adjusts with your revenue.",
+    desc: "Lump sum capital, repay from future sales. Fast approval.",
   },
   {
     icon: "📈",
-    title: "Working Capital Financing",
-    desc: "Keep your business running smoothly with short-term capital for payroll, inventory, marketing, and day-to-day operations.",
+    title: "Working Capital",
+    desc: "Short-term cash flow for payroll, inventory, and operations.",
   },
   {
     icon: "🏗️",
     title: "Equipment Financing",
-    desc: "Acquire the equipment you need to grow without draining your cash reserves. Competitive rates and flexible terms.",
+    desc: "Fund equipment purchases — the equipment is your collateral.",
   },
   {
     icon: "📋",
     title: "Term Loans",
-    desc: "Traditional business loans with fixed monthly payments, competitive interest rates, and terms up to 5 years.",
+    desc: "Fixed payments, predictable schedule, 3–60 month terms.",
   },
   {
     icon: "🔄",
     title: "Revenue-Based Financing",
-    desc: "Borrow based on your monthly revenue with payments that flex with your business performance. No fixed payments.",
+    desc: "Payments flex with your revenue. No fixed payment stress.",
   },
   {
     icon: "⚡",
-    title: "Same-Day / Next-Day Funding",
-    desc: "Need capital urgently? Our expedited funding options can put money in your account in as little as 24 hours.",
+    title: "Same-Day Funding",
+    desc: "When you can't wait — funds as fast as the same day.",
   },
 ];
 
@@ -64,8 +65,7 @@ export default function Solutions() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg text-steel"
           >
-            From merchant cash advances to equipment financing, we match your
-            business with the right type of funding.
+            Multiple funding options, one simple application.
           </motion.p>
         </div>
 
@@ -85,6 +85,21 @@ export default function Solutions() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/solutions"
+            className="inline-flex items-center text-navy font-semibold hover:text-accent transition-colors text-base"
+          >
+            View All Solutions →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

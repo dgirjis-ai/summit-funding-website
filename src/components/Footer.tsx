@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const quickLinks = [
-  { label: "About Us", href: "#about" },
-  { label: "Funding Solutions", href: "#solutions" },
-  { label: "Industries", href: "#industries" },
-  { label: "How It Works", href: "#how-it-works" },
+  { label: "About Us", href: "/about" },
+  { label: "Funding Solutions", href: "/solutions" },
+  { label: "Industries", href: "/industries" },
+  { label: "How It Works", href: "/how-it-works" },
   { label: "Apply Now", href: "/apply" },
 ];
 
@@ -29,7 +29,8 @@ export default function Footer() {
               alt="Summit Fundings"
               width={160}
               height={42}
-              className="h-10 w-auto mb-4 brightness-200"
+              className="h-10 w-auto mb-4"
+              style={{ filter: "brightness(0.85) contrast(0.9)", opacity: 0.7, mixBlendMode: "lighten" }}
             />
             <p className="text-white/50 text-sm leading-relaxed mb-6">
               Summit Fundings is a business funding brokerage connecting
@@ -103,10 +104,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 text-center">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/40">
             © 2026 Summit Fundings. All rights reserved.
           </p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy"
+              className="text-sm text-white/40 hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
