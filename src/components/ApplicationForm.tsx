@@ -250,14 +250,54 @@ export default function ApplicationForm() {
     setSubmitting(true);
     setSubmitError("");
 
-    try {
-      const res = await fetch("/api/submit-application", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+    const WEB3FORMS_KEYS = [
+      "0916508d-bbaa-4ec9-8715-1930b8ae560f",
+      "d3cfceb6-483b-40b3-9465-efa79d9a4628",
+    ];
 
-      if (!res.ok) throw new Error("Submission failed");
+    const businessName = form.businessName || "Unknown Business";
+
+    const payload = {
+      subject: `New Funding Application from ${businessName}`,
+      from_name: "Summit Fundings Website",
+      replyto: form.businessEmail || form.ownerEmail || "",
+      "Business Name": form.businessName,
+      "Business Address": `${form.businessStreet}, ${form.businessCity}, ${form.businessState} ${form.businessZip}`,
+      "Business Phone": form.businessPhone,
+      "Business Email": form.businessEmail,
+      "EIN": form.ein,
+      "Date Established": form.dateEstablished,
+      "Industry": form.industry,
+      "Monthly Revenue": form.monthlyRevenue,
+      "Owner Name": form.ownerName,
+      "Owner Title": form.ownerTitle,
+      "Owner DOB": form.ownerDOB,
+      "Owner SSN Last 4": form.ownerSSNLast4,
+      "Owner Address": `${form.ownerStreet}, ${form.ownerCity}, ${form.ownerState} ${form.ownerZip}`,
+      "Owner Phone": form.ownerPhone,
+      "Owner Email": form.ownerEmail,
+      "Requested Amount": form.requestedAmount,
+      "Use of Funds": form.useOfFunds,
+      "Credit Score": form.creditScore,
+      "Current Liens/Advances": form.hasLiens,
+      "Lien Details": form.lienDetails || "N/A",
+      "Bank Name": form.bankName,
+    };
+
+    try {
+      const results = await Promise.all(
+        WEB3FORMS_KEYS.map(async (key) => {
+          const res = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ ...payload, access_key: key }),
+          });
+          return res.json();
+        })
+      );
+
+      const anySuccess = results.some((r) => r.success);
+      if (!anySuccess) throw new Error("All sends failed");
 
       setSubmitted(true);
     } catch {
