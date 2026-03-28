@@ -25,12 +25,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Image
-              src="/logo.jpg"
+              src="/logo.png"
               alt="Summit Fundings"
               width={160}
               height={42}
               className="h-10 w-auto mb-4"
-              style={{ filter: "brightness(0.85) contrast(0.9)", opacity: 0.7, mixBlendMode: "lighten" }}
+              style={{ filter: "brightness(0) invert(1)", opacity: 0.8 }}
             />
             <p className="text-white/50 text-sm leading-relaxed mb-6">
               Summit Fundings is a business funding brokerage connecting

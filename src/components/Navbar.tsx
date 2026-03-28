@@ -23,12 +23,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/logo.jpg"
+              src="/logo.png"
               alt="Summit Fundings"
-              width={180}
-              height={48}
-              className="h-10 md:h-12 w-auto"
-              style={{ mixBlendMode: "multiply" }}
+              width={220}
+              height={60}
+              className="h-12 md:h-14 w-auto"
               priority
             />
           </Link>
