@@ -194,10 +194,28 @@ export default function ApplicationForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [submitted, setSubmitted] = useState(false);
 
+  const formatPhone = (raw: string): string => {
+    const digits = raw.replace(/\D/g, "").slice(0, 10);
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  };
+
+  const isEmailValid = (email: string): boolean => {
+    return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
   const update = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    let { value } = e.target;
+
+    // Auto-format phone fields to (XXX) XXX-XXXX, max 10 digits
+    if (name === "businessPhone" || name === "ownerPhone") {
+      value = formatPhone(value);
+    }
+
     setForm((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
@@ -214,13 +232,17 @@ export default function ApplicationForm() {
       if (!form.businessState.trim()) errs.businessState = "Required";
       if (!form.businessZip.trim()) errs.businessZip = "Required";
       if (!form.businessPhone.trim()) errs.businessPhone = "Required";
+      else if (form.businessPhone.replace(/\D/g, "").length !== 10) errs.businessPhone = "Enter a valid 10-digit phone number";
       if (!form.businessEmail.trim()) errs.businessEmail = "Required";
+      else if (!isEmailValid(form.businessEmail)) errs.businessEmail = "Enter a valid email (e.g. name@company.com)";
       if (!form.industry) errs.industry = "Required";
       if (!form.monthlyRevenue.trim()) errs.monthlyRevenue = "Required";
     } else if (step === 1) {
       if (!form.ownerName.trim()) errs.ownerName = "Required";
       if (!form.ownerPhone.trim()) errs.ownerPhone = "Required";
+      else if (form.ownerPhone.replace(/\D/g, "").length !== 10) errs.ownerPhone = "Enter a valid 10-digit phone number";
       if (!form.ownerEmail.trim()) errs.ownerEmail = "Required";
+      else if (!isEmailValid(form.ownerEmail)) errs.ownerEmail = "Enter a valid email (e.g. name@company.com)";
       if (!form.ownerDOB) errs.ownerDOB = "Required";
     } else if (step === 2) {
       if (!form.requestedAmount.trim()) errs.requestedAmount = "Required";
