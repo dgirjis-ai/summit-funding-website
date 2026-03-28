@@ -261,7 +261,7 @@ export default function ApplicationForm() {
 
       setSubmitted(true);
     } catch {
-      setSubmitError("Something went wrong. Please try again or call us at (313) 351-7477.");
+      setSubmitError("Something went wrong. Please try again or call us at (313) 710-1063.");
     } finally {
       setSubmitting(false);
     }

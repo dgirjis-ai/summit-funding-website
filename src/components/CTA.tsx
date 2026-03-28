@@ -45,10 +45,10 @@ export default function CTA() {
             Apply Now — It&apos;s Free
           </Link>
           <a
-            href="tel:3133517477"
+            href="tel:3137101063"
             className="inline-flex items-center justify-center px-10 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all text-lg"
           >
-            📞 (313) 351-7477
+            📞 (313) 710-1063
           </a>
         </motion.div>
       </div>
