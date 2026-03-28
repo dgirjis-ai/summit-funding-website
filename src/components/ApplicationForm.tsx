@@ -240,11 +240,31 @@ export default function ApplicationForm() {
 
   const prev = () => setStep((s) => Math.max(s - 1, 0));
 
-  const handleSubmit = (e: FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateStep()) return;
-    console.log("📋 Summit Fundings Application Submitted:", form);
-    setSubmitted(true);
+
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const res = await fetch("/api/submit-application", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Submission failed");
+
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Something went wrong. Please try again or call us at (313) 351-7477.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -442,12 +462,19 @@ export default function ApplicationForm() {
           ) : (
             <button
               type="submit"
-              className="px-8 py-3 bg-navy text-white font-semibold rounded-xl hover:bg-navy-light transition-all shadow-lg"
+              disabled={submitting}
+              className="px-8 py-3 bg-navy text-white font-semibold rounded-xl hover:bg-navy-light transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit Application
+              {submitting ? "Submitting..." : "Submit Application"}
             </button>
           )}
         </div>
+
+        {submitError && (
+          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm text-center">
+            {submitError}
+          </div>
+        )}
       </form>
     </div>
   );
